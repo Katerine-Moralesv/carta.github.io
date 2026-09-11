@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#17102b">
+  <title>Para ti, mi amor 🤍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pink:#f05b91;--soft:#ffdce8;--cream:#fff8ee;--ink:#32243a}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Poppins,sans-serif;background:#130d27;color:white;-webkit-tap-highlight-color:transparent}
+button{font:inherit;border:0;cursor:pointer}
+.app{height:100dvh;width:100%;position:relative;overflow:hidden}
+.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;visibility:hidden;transform:scale(1.03);transition:opacity .55s ease,transform .55s ease,visibility .55s}
+.screen.active{opacity:1;visibility:visible;transform:scale(1)}
+#home,.surprise,.final{background:radial-gradient(circle at 50% 80%,#67315c 0%,#24143e 42%,#0d1633 100%)}
+#home:after,.final:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-8%;height:30%;background:linear-gradient(180deg,transparent,#09132b 70%);clip-path:polygon(0 75%,12% 58%,22% 70%,34% 45%,46% 67%,58% 52%,70% 72%,83% 50%,100% 68%,100% 100%,0 100%);opacity:.8}
+.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#f7b9d0 1px,transparent 1px);background-size:73px 73px,113px 113px;background-position:10px 20px,40px 70px;opacity:.45}
+.moon{position:absolute;top:9%;right:11%;font-size:55px;color:#ffd3e4;text-shadow:0 0 25px #ff91bd}
+.intro{text-align:center;z-index:2;margin-top:-10vh}
+.tiny-heart{font-size:30px;color:#ff9abc}
+h1,h2{font-family:Caveat,cursive;font-weight:500}
+.intro h1{font-size:clamp(48px,14vw,78px);line-height:.9;margin:15px 0 30px;color:#fff4f8}
+.intro p{font-size:13px;line-height:1.8;color:#eaddea;margin-bottom:27px}
+.primary,.surprise-btn,.next{background:linear-gradient(135deg,#ff6e9e,#d94c82);color:white;box-shadow:0 12px 30px #0005}
+.primary{border-radius:50px;padding:15px 22px;min-width:220px;display:flex;align-items:center;justify-content:space-between;font-size:14px}
+.primary span{font-size:21px}.primary b{font-size:20px}
+.signature{position:absolute;bottom:5%;font-size:9px;color:#b9a5bf;letter-spacing:1px;z-index:2}
+#envelope{background:radial-gradient(circle at 50% 35%,#3e2241,#160f29 72%)}
+.envelope-wrap{text-align:center;width:100%;z-index:2}
+.hint{font-family:Caveat;font-size:28px;color:#ffe4ed;margin-bottom:55px}
+.envelope{width:min(300px,78vw);height:190px;margin:auto;position:relative;background:linear-gradient(145deg,#f9a8bc,#d86c8e);border-radius:5px;box-shadow:0 25px 45px #0007;perspective:700px}
+.envelope:before,.envelope:after{content:"";position:absolute;bottom:0;width:50%;height:100%;background:#e889a5;z-index:2}
+.envelope:before{left:0;clip-path:polygon(0 0,100% 100%,0 100%)}.envelope:after{right:0;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.flap{position:absolute;top:0;left:0;width:100%;height:100%;background:#ffb4c8;clip-path:polygon(0 0,100% 0,50% 60%);z-index:4;transform-origin:top;transition:transform .8s ease}
+.paper-mini{position:absolute;background:#fff8ed;color:#ba456b;width:85%;height:160px;left:7.5%;top:15px;z-index:1;padding-top:35px;font-size:30px}
+.seal{position:absolute;z-index:5;left:calc(50% - 21px);top:74px;width:42px;height:42px;border-radius:50%;background:#9e2e57;display:grid;place-items:center;box-shadow:0 4px 10px #0004}
+.here{font-family:Caveat;font-size:25px;color:#ffdce7;margin-top:42px}
+.envelope-wrap.open .flap{transform:rotateX(180deg)}.envelope-wrap.open .seal{opacity:0;transition:.2s}.envelope-wrap.open .paper-mini{transform:translateY(-45px);transition:.8s}
+.letter-screen{background:linear-gradient(135deg,#201530,#38213d)}
+.letter-card{position:relative;background:var(--cream);color:var(--ink);width:min(500px,92vw);height:min(78dvh,700px);padding:42px 27px 30px;border-radius:3px;box-shadow:8px 12px 35px #0007;display:flex;flex-direction:column}
+.letter-card:before{content:"";position:absolute;inset:8px;border:1px solid #e6c4b7;pointer-events:none}
+.page-count{position:absolute;right:25px;top:20px;font-size:11px;color:#95677b}
+.ornament{text-align:center;color:#9b3458;font-size:17px;margin-bottom:16px}
+.letter-text{font-family:Caveat,cursive;font-size:clamp(21px,5.5vw,26px);line-height:1.28;overflow:auto;padding:0 5px 12px;flex:1;scrollbar-width:none}.letter-text::-webkit-scrollbar{display:none}
+.letter-text p{margin-bottom:18px}.next{align-self:flex-end;border-radius:25px;padding:11px 18px;font-size:12px;z-index:3}
+.next span{margin-left:7px}
+.surprise-content{text-align:center;z-index:2}.eyebrow{font-family:Caveat;font-size:28px;color:#ffc4d7}.surprise h2{font-size:65px;line-height:.9;margin:15px 0;color:#fff}.surprise-content>p:not(.eyebrow){font-size:11px;color:#d9c6db;margin:25px 0}
+.floating-photo{width:140px;height:110px;margin:0 auto 25px;background:linear-gradient(135deg,#ffb0c7,#714b76);transform:rotate(-6deg);box-shadow:0 15px 35px #0006;display:grid;place-items:center;font-size:45px;color:white}
+.surprise-btn{padding:14px 24px;border-radius:30px;font-size:13px}.surprise-btn span{margin-left:8px}
+.reveal{background:radial-gradient(circle,#57334e,#1b122e 75%);flex-direction:column}
+.memory{position:relative;width:min(350px,88vw);height:480px}.memory-photo{position:absolute;width:58%;height:48%;background-size:cover;background-position:center;box-shadow:0 8px 22px #0008;border:7px solid #fff}
+.p1{left:3%;top:3%;transform:rotate(-8deg);background:linear-gradient(135deg,#775069,#edafbc)}
+.p2{right:0;top:15%;transform:rotate(7deg);background:linear-gradient(135deg,#252e5b,#d886a6)}
+.p3{left:18%;bottom:2%;transform:rotate(-2deg);background:linear-gradient(135deg,#e49ba8,#49355f)}
+.memory-note{position:absolute;z-index:4;background:#fff5e7;color:#513544;padding:22px 18px;text-align:center;width:80%;left:10%;top:40%;transform:rotate(-3deg);box-shadow:0 10px 25px #0005;font-family:Caveat;font-size:27px}.memory-note small{display:block;font-size:17px;margin-top:7px}
+.final-next{margin-top:10px}
+.final-content{text-align:center;z-index:2}.big-heart{font-size:75px;color:#ff8fb4;animation:pulse 1.8s infinite}.final h2{font-size:70px;line-height:.9;margin:10px 0 30px}.final p{font-size:13px;line-height:1.9;color:#eaddea}.line{width:100px;height:1px;background:#c88ca5;margin:25px auto}.love{font-family:Caveat;font-size:35px}.love span{color:#ff789f}.small-note{font-size:10px;color:#bca9c0;margin-top:45px}
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}.heart{position:absolute;bottom:-30px;color:#ff8db2;animation:floatUp linear forwards;text-shadow:0 0 12px #ff7fa644}
+@keyframes floatUp{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+@keyframes pulse{50%{transform:scale(1.13)}}
+@media(min-width:700px){.screen{padding:40px}.letter-card{height:700px}.letter-text{font-size:25px}}
+@media(max-height:650px){.letter-card{height:84dvh;padding-top:34px}.letter-text{font-size:19px}.intro h1{font-size:50px}.hint{margin-bottom:30px}.envelope{height:155px}.surprise h2,.final h2{font-size:55px}}
+
+</style>
+</head>
+<body>
+  <div id="hearts"></div>
+  <main class="app">
+
+    <section class="screen active" id="home">
+      <div class="stars"></div>
+      <div class="moon">☾</div>
+      <div class="intro">
+        <span class="tiny-heart">♡</span>
+        <h1>Hay algo que<br>quiero que leas...</h1>
+        <p>Es para ti, con todo<br>mi cariño 🤍</p>
+        <button class="primary" id="openBtn"><span>✉</span> Abrir carta <b>→</b></button>
+      </div>
+      <div class="signature">Hecho especialmente para ti</div>
+    </section>
+
+    <section class="screen" id="envelope">
+      <div class="envelope-wrap" id="envelopeTap">
+        <p class="hint">Toca el sobre para abrirlo...</p>
+        <div class="envelope">
+          <div class="flap"></div>
+          <div class="paper-mini">♡</div>
+          <div class="seal">♥</div>
+        </div>
+        <p class="here">Aquí empieza... ♡</p>
+      </div>
+    </section>
+
+    <section class="screen letter-screen" id="letter">
+      <div class="letter-card">
+        <div class="page-count"><span id="pageNum">1</span>/6</div>
+        <div class="ornament">♥</div>
+        <div id="letterText" class="letter-text"></div>
+        <button class="next" id="nextBtn">Siguiente <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="screen surprise" id="surprise">
+      <div class="surprise-content">
+        <div class="floating-photo">♡</div>
+        <p class="eyebrow">Y ahora...</p>
+        <h2>Una pequeña<br>sorpresa</h2>
+        <p>Toca para verla</p>
+        <button class="surprise-btn" id="surpriseBtn">♡ <span>Ver sorpresa</span></button>
+      </div>
+    </section>
+
+    <section class="screen reveal" id="reveal">
+      <div class="memory">
+        <div class="memory-photo p1"></div>
+        <div class="memory-photo p2"></div>
+        <div class="memory-photo p3"></div>
+        <div class="memory-note">
+          <span>Gracias por estar en mi vida</span>
+          <small>y hacerla más bonita cada día. ♡</small>
+        </div>
+      </div>
+      <button class="next final-next" id="finalBtn">Continuar <span>→</span></button>
+    </section>
+
+    <section class="screen final" id="final">
+      <div class="final-content">
+        <div class="big-heart">♡</div>
+        <h2>Mil gracias<br>por existir</h2>
+        <p>Hoy celebro tu vida,<br>pero más que nada,<br>celebro la dicha de tenerte en ella.</p>
+        <div class="line"></div>
+        <div class="love">Te quiero <span>♥</span></div>
+        <div class="small-note">Feliz cumpleaños, mi amor 🤍</div>
+      </div>
+    </section>
+
+  </main>
+  <script>
+const screens = [...document.querySelectorAll(".screen")];
+const show = id => {
+  screens.forEach(s => s.classList.toggle("active", s.id === id));
+};
+
+const heartLayer = document.getElementById("hearts");
+function heartBurst(amount=18){
+  for(let i=0;i<amount;i++){
+    const h=document.createElement("span");
+    h.className="heart";
+    h.textContent=Math.random()>.25?"♥":"♡";
+    h.style.left=Math.random()*100+"%";
+    h.style.fontSize=(12+Math.random()*22)+"px";
+    h.style.animationDuration=(3+Math.random()*3)+"s";
+    h.style.animationDelay=(Math.random()*1.5)+"s";
+    heartLayer.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+  }
+}
+
+document.getElementById("openBtn").addEventListener("click",()=>{
+  show("envelope");
+  setTimeout(()=>document.getElementById("envelopeTap").classList.add("open"),250);
+});
+
+document.getElementById("envelopeTap").addEventListener("click",()=>{
+  document.getElementById("envelopeTap").classList.add("open");
+  setTimeout(()=>{show("letter"); renderPage();},900);
+});
+
+const pages = [
+`<p>Cuando mencionaste el día de tu cumpleaños, no me imaginé escribiéndote para desearte uno feliz. Sé que no lo celebras, que no estás acostumbrado, pero para mí es muy importante, porque cómo te tratan en tu cumpleaños refleja lo que sienten por ti.</p><p>Más allá de los regalos materiales, lo que realmente se aprecia es el tiempo y el cariño que alguien decide dedicarte. El tiempo es lo más valioso que tenemos, y que alguien te lo regale ese día es muy significativo.</p>`,
+`<p>No voy a desearte que todo te salga perfecto, porque de los errores aprendemos y en ellos están las oportunidades de crecer.</p><p>Tampoco te voy a desear simplemente que cumplas tus metas, sino la resiliencia, el esfuerzo y la claridad que vas a necesitar para alcanzarlas.</p>`,
+`<p>No sabes cuánto quería estar contigo en tu primer cumpleaños desde que estamos juntos.</p><p>Aunque no pueda estar ahí, voy a hacer desde lejos que este sea un día feliz para ti, y espero poder celebrarlo contigo este fin de semana.</p>`,
+`<p>Eres muy importante para mí, y ya sabes cuánto te quiero, señor Marlon.</p><p>Que Dios te bendiga y te cuide siempre en cada paso que des, que te permita cumplir muchos años más de vida rodeado de quienes te quieren.</p>`,
+`<p>No sé cuánto tiempo estemos juntos, pero mientras lo estemos, te voy a demostrar la persona increíble y maravillosa que eres.</p><p>Soy una mujer muy afortunada de tenerte a mi lado.</p>`,
+`<p>Ten un lindo y bendecido cumpleaños, mi amor 🤍</p><p>Gracias por estar en mi vida y por hacerla más bonita con tu forma de ser.</p><p style="text-align:center;font-size:34px;margin-top:30px">♡</p>`
+];
+
+let page=0;
+function renderPage(){
+  document.getElementById("letterText").innerHTML=pages[page];
+  document.getElementById("pageNum").textContent=page+1;
+  document.getElementById("nextBtn").innerHTML=page===pages.length-1 ? "Ver sorpresa <span>→</span>" : "Siguiente <span>→</span>";
+  document.getElementById("letterText").scrollTop=0;
+}
+document.getElementById("nextBtn").addEventListener("click",()=>{
+  if(page < pages.length-1){page++;renderPage();heartBurst(5);}
+  else {show("surprise");heartBurst(12);}
+});
+
+document.getElementById("surpriseBtn").addEventListener("click",()=>{
+  show("reveal"); heartBurst(28);
+});
+document.getElementById("finalBtn").addEventListener("click",()=>{
+  show("final"); heartBurst(45);
+});
+
+setInterval(()=>{ if(document.querySelector(".screen.active")?.id!=="letter") heartBurst(1); },2200);
+
+</script>
+</body>
+</html>
